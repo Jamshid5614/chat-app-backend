@@ -9,7 +9,8 @@ const cors = require("cors");
 const server = require("http").createServer(app);
 const User = require("./models/user");
 const Chat = require("./models/chat");
-const responseTime = require('response-time');
+const responseTime = require("response-time");
+require("./startup/prod")(app);
 const io = require("socket.io")(server, {
   cors: {
     origin: "http://localhost:3002",
@@ -22,9 +23,9 @@ app.set("view engine", "ejs");
 app.use("/", chatRoutes);
 app.use("/", authRoutes);
 app.use("/", userRoute);
-
+const dbUri = process.env.dbUri || "mongodb://localhost:27017/chat-app";
 mongoose
-  .connect("mongodb://localhost:27017/chat-app", {
+  .connect(dbUri, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useFindAndModify: false,
@@ -34,8 +35,6 @@ mongoose
   .catch((err) => console.log("Mongodb connection Error: ", err));
 
 const connection = mongoose.connection;
-
-
 
 app.get("/", (req, res) => {
   res.render("index");
