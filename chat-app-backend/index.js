@@ -26,6 +26,7 @@ app.use("/", userRoute);
 
 const dbUri = process.env.dbUri || "mongodb://localhost:27017/chat-app";
 
+// hello node js 🖐🖐🖐🖐🖐🖐
 mongoose
   .connect(dbUri, {
     useCreateIndex: true,
