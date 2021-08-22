@@ -23,7 +23,9 @@ app.set("view engine", "ejs");
 app.use("/", chatRoutes);
 app.use("/", authRoutes);
 app.use("/", userRoute);
+
 const dbUri = process.env.dbUri || "mongodb://localhost:27017/chat-app";
+
 mongoose
   .connect(dbUri, {
     useCreateIndex: true,
